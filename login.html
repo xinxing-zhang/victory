@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .big {
+            width: 600px;
+            height: 300px;
+            margin: 0 auto;
+            border: 1px solid orange;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 100px;
+        }
+
+        .username {
+            margin-bottom: 20px;
+        }
+
+        .password {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="big">
+        <input type="text" placeholder="请输入手机号" class="username" name="username">
+        <input type="text" class="password" name="password" placeholder="请输入密码">
+        <button>登录</button>
+    </div>
+</body>
+<script src="./jquery.js"></script>
+<script>
+    $("button").on("click", () => {
+        var num = $(".username").val();
+        var str = /^\d{11}$/;
+        if (str.test(num)) {
+            $.get(
+                "http://localhost:1999/login",
+                {
+                    username:$(".username").val(),
+                    password:$(".password").val(),
+                },function (res) {
+                    if (res == "victory") {
+                        window.location.href = "./home.html"
+                    }
+                }
+            )
+        }else{
+            alert("请输入正确的手机号码")
+        }
+    })
+</script>
+
+</html>
